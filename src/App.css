@@ -3,7 +3,10 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+    animation-name: App-logo-spin;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
   height: 40vmin;
 }
 
@@ -15,11 +18,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: green;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #800080;
 }
 
 @keyframes App-logo-spin {
@@ -27,6 +30,12 @@
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(359deg);
   }
+}
+
+@keyframes mymove {
+    0%   {transform: skewX(0deg)}
+
+    100% {transform: skewX(180deg)}
 }
