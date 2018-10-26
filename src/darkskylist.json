@@ -1,0 +1,34 @@
+[ 
+ {
+	"title": "Craters of the Moon",
+	"query": "Craters of the Moon",
+	"location": { "lat": "43.4622159", "lng": "-113.5640147" },
+	"description":
+	  "Moonscape of Idaho",
+	"type": "point"
+  },
+  {
+	"title": "Mount Borah",
+	"query": "Mount Borah",
+	"location": { "lat": "44.1381578", "lng": "-113.7825817" },
+	"description":
+	  "Highest peak in Idaho at 16,667 feet",
+	"type": "point"
+  },
+    {
+	"title": "Some kind of campground",
+	"query": "Campy McCampface",
+	"location": { "lat": "44.1981578", "lng": "-113.2325817" },
+	"description":
+	  "Camping is fantastic",
+	"type": "camp"
+  },
+    {
+	"title": "Some kind of trailhead",
+	"query": "Traily McTrailface",
+	"location": { "lat": "44.2381578", "lng": "-114.1825817" },
+	"description":
+	  "I don't need no stinking trails",
+	"type": "trail"
+  }
+]

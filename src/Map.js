@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {Map, InfoWindow, Polygon, Marker, GoogleApiWrapper} from 'google-maps-react';
 import moonicon from './moonicon.png';
+import mapStyles from './mapStyles.json'; // Lars Entrop's Red Darkness was starting point for map style https://snazzymaps.com/style/18566/red-darkness 
 
 // Getting Google Maps working with React - npm documentation helpful:  https://www.npmjs.com/package/google-maps-react
 
@@ -21,7 +22,8 @@ export class MyMap extends Component {
 				initialCenter = {{
 					lat: 43.735768,
 					lng: -114.2204747}}
-				zoom={8.6}>
+				zoom={8.6}
+				styles = {mapStyles}>
  
 				<Marker
 					name={'Borah Peak'}
