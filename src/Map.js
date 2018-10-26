@@ -15,12 +15,13 @@ export class MyMap extends Component {
 			{lat: 44.200529, lng: -114.6564147}
 		];
 		// const { google } = this.props
-		return (			
+		return (	
+			<div id="map-container">
 			<Map google = {this.props.google}
 				initialCenter = {{
-					lat: 43.835768,
-					lng: -114.5704747}}
-				zoom={9}>
+					lat: 43.735768,
+					lng: -114.2204747}}
+				zoom={8.6}>
  
 				<Marker
 					name={'Borah Peak'}
@@ -41,10 +42,10 @@ export class MyMap extends Component {
 					fillOpacity={0.25}
 				/>
 			</Map>
-    );
-  }
+			</div>
+		);
+	}
 }
- 
 
 export default GoogleApiWrapper({
   apiKey: ("AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM")
