@@ -21,7 +21,7 @@ class App extends Component {
 			this.setState({	showingList: this.state.fullList })
 			console.log(this.state.showingList)
 		} else {
-			this.setState({ showingList: this.state.fullList.filter(item => item.type == type)})
+			this.setState({ showingList: this.state.fullList.filter(item => item.type === type)})
 			console.log(type)
 			console.log(this.state.showingList)
 		}
