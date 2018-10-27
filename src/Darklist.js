@@ -3,18 +3,18 @@ import './App.css';
 
 export class Darklist extends Component {
 	state = {
-		filter: ""
+		filter: "all"
 	}
 	
 	filterChange = filter => {
 		this.setState({ filter })
 		setTimeout(() => {this.props.onFilterList(filter)}, 50)
-		console.log(filter)
-		
+		console.log(filter)		
 	}
 		
 	render() {
 		const { filter } = this.state
+		const { listDisplay } = this.props
 		return (	
 			<div id="darklist">
 			      <div className="filter-options">
@@ -26,7 +26,16 @@ export class Darklist extends Component {
 		  <option role="tablist" value="camp">Campgrounds</option>
         </select>
 		</div>
-			<ul id="currentList"></ul>
+			<ul id="currentList">
+				{listDisplay.map((place) => (
+				<li key={place.id} className='place'>
+					<div className='place-details'>
+						<p>{place.title}</p>
+						<p>{place.description}</p>
+					</div>
+				</li>
+				))}
+			</ul>
 			<div className="darkitem">
 				<p>Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket! Hello world and Sprocket!</p>
 				</div>

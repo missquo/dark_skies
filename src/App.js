@@ -8,7 +8,7 @@ import darkskylist from './darkskylist.json';
 class App extends Component {
 	state = {
 		fullList: darkskylist,
-		showingList: []
+		showingList: darkskylist
 	}
 	
 	componentDidMount(){
@@ -32,7 +32,7 @@ class App extends Component {
 		<div>
 			<Header>
 			</Header>
-			<MyMap>
+			<MyMap listDisplay = {this.state.showingList}>
 			</MyMap>
 			<Darklist onFilterList = {this.updateList} listDisplay = {this.state.showingList}>
 			</Darklist>
