@@ -15,26 +15,24 @@ export class MyMap extends Component {
 			{lat: 44.059578, lng: -114.5740057},
 			{lat: 44.200529, lng: -114.6564147}
 		];
+		const { listDisplay } = this.props
 		// const { google } = this.props
 		return (	
 			<div id="map-container">
 			<Map google = {this.props.google}
 				initialCenter = {{
-					lat: 43.735768,
-					lng: -114.2204747}}
+					lat: 44.015768,
+					lng: -114.344747}}
 				zoom={8.6}
 				styles = {mapStyles}>
- 
-				<Marker
-					name={'Borah Peak'}
-					position={{lat: 44.1381578, lng: -113.7825817}}
+				
+ 				{listDisplay.map((place) => (
+				<Marker key={place.id} 
+					name={place.title}
+					position={place.location}
 					icon={{url: moonicon}}
-				/>
-				<Marker
-					name={'Craters of the Moon'}
-					position={{lat: 43.4622159, lng: -113.5640147}}
-					icon={{url: moonicon}}
-				/>
+					/>
+				))}
 				<Polygon
 					paths={darkSkyCore1}
 					strokeColor="#4b0082"

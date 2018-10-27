@@ -19,18 +19,18 @@
   },
     {
 	"id": "3",
-	"title": "Some kind of campground",
-	"query": "Campy McCampface",
-	"location": { "lat": "44.1981578", "lng": "-113.2325817" },
+	"title": "Frank Church Wilderness",
+	"query": "Wilde",
+	"location": { "lat": "44.679163", "lng": "-114.4239207" },
 	"description":
-	  "Camping is fantastic",
-	"type": "camp"
+	  "The Frank Church-River of No Return Wilderness contains a total of 2,366,757 acres",
+	"type": "point"
   },
     {
 	"id": "4",
-	"title": "Some kind of trailhead",
+	"title": "Champion Creek Trailhead",
 	"query": "Traily McTrailface",
-	"location": { "lat": "44.2381578", "lng": "-114.1825817" },
+	"location": { "lat": "44.040093", "lng": "-114.7534447" },
 	"description":
 	  "I don't need no stinking trails",
 	"type": "trail"
