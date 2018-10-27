@@ -4,26 +4,28 @@ import {Map, InfoWindow, Polygon, Marker, GoogleApiWrapper} from 'google-maps-re
 import moonicon from './moonicon.png';
 import mapStyles from './mapStyles.json'; // Lars Entrop's Red Darkness was starting point for map style https://snazzymaps.com/style/18566/red-darkness 
 
-// Getting Google Maps working with React - npm documentation helpful:  https://www.npmjs.com/package/google-maps-react
+// Getting Google Maps working with google-maps-react - npm documentation helpful:  https://www.npmjs.com/package/google-maps-react
 
 export class MyMap extends Component {
 	state = {
-		showingInfoWindow: false,
-		activeMarker: {},
-		selectedPlace: {},
+		infoShowing: false,
+		selectedLocation: {},
+		activeMarker: {}
 	}
- 
+	
+	//Shows InfoWindow when user clicks marker
 	onMarkerClick = (props, marker, event) =>
 		this.setState({
-			selectedPlace: props,
+			selectedLocation: props,
 			activeMarker: marker,
-			showingInfoWindow: true
+			infoShowing: true
     });
- 
-	onMapClicked = (props) => {
-		if (this.state.showingInfoWindow) {
+	
+	//Closes InfoWindow when user clicks map
+	mapClick = (props) => {
+		if (this.state.infoShowing) {
 			this.setState({
-				showingInfoWindow: false,
+				infoShowing: false,
 				activeMarker: null
 			})
 		}
@@ -34,7 +36,7 @@ export class MyMap extends Component {
 		var map = document.getElementById("map-container");
 		map.addEventListener("mouseleave", () =>  { 
 			this.setState({
-				showingInfoWindow: false,
+				infoShowing: false,
 				activeMarker: null
 			})
 		})
@@ -48,12 +50,12 @@ export class MyMap extends Component {
 			{lat: 44.059578, lng: -114.5740057},
 			{lat: 44.200529, lng: -114.6564147}
 		];
-		const { listDisplay } = this.props
-		// const { google } = this.props
+		const { listDisplay, google } = this.props
+
 		return (	
 			<div id="map-container">
-			<Map google = {this.props.google}
-				onClick={this.onMapClicked}
+			<Map google = {google}
+				onClick={this.mapClick}
 				onReady={this.mouseLeave}
 				initialCenter = {{
 					lat: 44.015768,
@@ -62,7 +64,6 @@ export class MyMap extends Component {
 				styles = {mapStyles}>
 				
  				{listDisplay.map((place) => (
-			
 				<Marker key={place.id} 
 					onClick={this.onMarkerClick}
 					name={place.title}
@@ -72,9 +73,9 @@ export class MyMap extends Component {
 				))}
 				
 					{listDisplay.map((place) => (
-				<InfoWindow	marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
+				<InfoWindow	key={place.id} marker={this.state.activeMarker} visible={this.state.infoShowing}>
 						<div>
-						<h1>{this.state.selectedPlace.name}</h1>
+						<h1>{this.state.selectedLocation.name}</h1>
 						</div>
 				</InfoWindow>		
 						

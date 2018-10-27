@@ -8,12 +8,17 @@ import darkskylist from './darkskylist.json';
 class App extends Component {
 	state = {
 		fullList: darkskylist,
-		showingList: darkskylist
+		showingList: darkskylist,
+		allNPS: []
 	}
 	
 	componentDidMount(){
-		console.log(this.state.fullList)
-	}
+		fetch('https://developer.nps.gov/api/v1/parks?stateCode=ID&api_key=VKaJBfPIuK5bD0hgyvivuwIkYGE9tCJEIY3GpG0z')
+			.then((resp) => resp.json())
+			.then((allNPS) => {
+			this.setState({ allNPS })
+			console.log(this.state.allNPS)
+	})}
 	
 	updateList = (type) => {
 

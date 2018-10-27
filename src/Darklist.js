@@ -17,18 +17,18 @@ export class Darklist extends Component {
 		const { listDisplay } = this.props
 		return (	
 			<div id="darklist">
-			      <div className="filter-options">
-        <h2>Filter Results</h2>
-        <select tabIndex="1" value={filter} onChange={(event) => this.filterChange(event.target.value)}>
-          <option role="tablist" value="all">All Locations</option>
-		  <option role="tablist" value="point">Points of Interest</option>
-		  <option role="tablist" value="trail">Hiking Trails</option>
-		  <option role="tablist" value="camp">Campgrounds</option>
-        </select>
-		</div>
-			<ul id="currentList">
-				{listDisplay.map((place) => (
-				<li key={place.id} className='place'>
+				<div className="filter-options">
+					<h2>Filter Results</h2>
+					<select id="locationselect" tabIndex="0" value={filter} onChange={(event) => this.filterChange(event.target.value)}>
+						<option role="tablist" value="all">All Locations</option>
+						<option role="tablist" value="point">Points of Interest</option>
+						<option role="tablist" value="trail">Hiking Trails</option>
+						<option role="tablist" value="camp">Campgrounds</option>
+					</select>
+				</div>
+				<ul id="currentList">
+					{listDisplay.map((place) => (
+					<li key={place.id} className='place' tabIndex='2'>
 					<div className='place-details'>
 						<p>{place.title}</p>
 						<p>{place.description}</p>

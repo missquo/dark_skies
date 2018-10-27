@@ -41,6 +41,16 @@ nav h1 {
   width: 38%;
 }
 
+.skip-link {
+	position: absolute;
+	top: -40px; //offscreen
+	left: 0px;
+	background: black;
+	color: white;
+	padding: 8px;
+	z-index: 100;
+}
+
 @media screen and (max-width: 500px) {
 	nav {
   width: 100%;
