@@ -7,6 +7,39 @@ import mapStyles from './mapStyles.json'; // Lars Entrop's Red Darkness was star
 // Getting Google Maps working with React - npm documentation helpful:  https://www.npmjs.com/package/google-maps-react
 
 export class MyMap extends Component {
+	state = {
+		showingInfoWindow: false,
+		activeMarker: {},
+		selectedPlace: {},
+	}
+ 
+	onMarkerClick = (props, marker, event) =>
+		this.setState({
+			selectedPlace: props,
+			activeMarker: marker,
+			showingInfoWindow: true
+    });
+ 
+	onMapClicked = (props) => {
+		if (this.state.showingInfoWindow) {
+			this.setState({
+				showingInfoWindow: false,
+				activeMarker: null
+			})
+		}
+	};
+	
+	//Closes InfoWindow when mouse leaves map
+	mouseLeave = () => {
+		var map = document.getElementById("map-container");
+		map.addEventListener("mouseleave", () =>  { 
+			this.setState({
+				showingInfoWindow: false,
+				activeMarker: null
+			})
+		})
+	}
+		
 	render() {
 		const darkSkyCore1 = [
 			{lat: 44.200529, lng: -114.6564147},
@@ -20,6 +53,8 @@ export class MyMap extends Component {
 		return (	
 			<div id="map-container">
 			<Map google = {this.props.google}
+				onClick={this.onMapClicked}
+				onReady={this.mouseLeave}
 				initialCenter = {{
 					lat: 44.015768,
 					lng: -114.344747}}
@@ -27,12 +62,24 @@ export class MyMap extends Component {
 				styles = {mapStyles}>
 				
  				{listDisplay.map((place) => (
+			
 				<Marker key={place.id} 
+					onClick={this.onMarkerClick}
 					name={place.title}
 					position={place.location}
 					icon={{url: moonicon}}
 					/>
 				))}
+				
+					{listDisplay.map((place) => (
+				<InfoWindow	marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
+						<div>
+						<h1>{this.state.selectedPlace.name}</h1>
+						</div>
+				</InfoWindow>		
+						
+				))}
+				
 				<Polygon
 					paths={darkSkyCore1}
 					strokeColor="#4b0082"
