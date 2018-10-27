@@ -8,8 +8,9 @@ export class Darklist extends Component {
 	
 	filterChange = filter => {
 		this.setState({ filter })
-		this.props.onFilterList(filter)
+		setTimeout(() => {this.props.onFilterList(filter)}, 50)
 		console.log(filter)
+		
 	}
 		
 	render() {
