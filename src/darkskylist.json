@@ -4,8 +4,6 @@
 	"title": "Craters of the Moon",
 	"query": "Craters Of The Moon",
 	"location": { "lat": "43.4622159", "lng": "-113.5640147" },
-	"description":
-	  "Moonscape of Idaho",
 	"type": "point"
   },
   {
@@ -13,8 +11,6 @@
 	"title": "Mount Borah",
 	"query": "Mount Borah",
 	"location": { "lat": "44.1381578", "lng": "-113.7825817" },
-	"description":
-	  "Highest peak in Idaho at 16,667 feet",
 	"type": "point"
   },
     {
@@ -22,8 +18,6 @@
 	"title": "Frank Church Wilderness",
 	"query": "Wilde",
 	"location": { "lat": "44.679163", "lng": "-114.4239207" },
-	"description":
-	  "The Frank Church-River of No Return Wilderness contains a total of 2,366,757 acres",
 	"type": "point"
   },
     {
@@ -31,8 +25,13 @@
 	"title": "Champion Creek Trailhead",
 	"query": "Traily McTrailface",
 	"location": { "lat": "44.040093", "lng": "-114.7534447" },
-	"description":
-	  "I don't need no stinking trails",
 	"type": "trail"
+  },
+    {
+	"id": "5",
+	"title": "Sunny Gulch Campground",
+	"query": "SUNNY GULCH CAMPGROUND",
+	"location": { "lat": "44.1761111", "lng": "-114.9091667" },
+	"type": "camp"
   }
 ]

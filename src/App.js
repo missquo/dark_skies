@@ -9,17 +9,37 @@ class App extends Component {
 	state = {
 		fullList: darkskylist,
 		showingList: darkskylist,
-		allNPS: []
+		allNPS: [],
+		allCamp: [],
+		allRec: []
 	}
 	
 	componentDidMount(){
+		// Fetch data from National Park Service
 		fetch('https://developer.nps.gov/api/v1/parks?stateCode=ID&api_key=VKaJBfPIuK5bD0hgyvivuwIkYGE9tCJEIY3GpG0z')
 			.then((resp) => resp.json())
 			.then((allNPS) => {
 			this.setState({ allNPS })
 			console.log(this.state.allNPS)
+			})
+		
+		//Fetch data from Recreation.gov via proxy for CORS errors
+		// Thanks to user at StackOverflow https://stackoverflow.com/questions/43262121/trying-to-use-fetch-and-pass-in-mode-no-cors
+		fetch('https://cors-anywhere.herokuapp.com/https://ridb.recreation.gov/api/v1/recareas?query=wilderness&limit=25&offset=0&full=false&state=ID&sort=Name&apikey=014f5b00-d3c3-45bf-a7b2-75a6563e0de6')	
+			.then((resp) => resp.json())
+			.then((allRec) => {
+			this.setState({ allRec })
+			console.log(this.state.allRec)
+			})
+		
+		fetch('https://cors-anywhere.herokuapp.com/https://ridb.recreation.gov/api/v1/recareas/1027/facilities?limit=50&offset=0&full=false&apikey=014f5b00-d3c3-45bf-a7b2-75a6563e0de6')	
+			.then((resp) => resp.json())
+			.then((allCamp) => {
+			this.setState({ allCamp })
+			console.log(this.state.allCamp)				
 	})}
 	
+
 	updateList = (type) => {
 
 		if (type === "all") {
@@ -39,7 +59,7 @@ class App extends Component {
 			</Header>
 			<MyMap listDisplay = {this.state.showingList}>
 			</MyMap>
-	<Darklist onFilterList = {this.updateList} listDisplay = {this.state.showingList} nps = {this.state.allNPS}>
+	<Darklist onFilterList = {this.updateList} listDisplay = {this.state.showingList} nps = {this.state.allNPS} rec={this.state.allRec}>
 			</Darklist>
 		</div>
 		);
