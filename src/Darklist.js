@@ -14,7 +14,7 @@ export class Darklist extends Component {
 		
 	render() {
 		const { filter } = this.state
-		const { listDisplay } = this.props
+		const { listDisplay, nps } = this.props
 		return (	
 			<div id="darklist">
 				<div className="filter-options">
@@ -27,14 +27,25 @@ export class Darklist extends Component {
 					</select>
 				</div>
 				<ul id="currentList">
-					{listDisplay.map((place) => (
+					{listDisplay.map((place) => {
+						console.log(nps)
+						console.log(listDisplay)
+					if (nps.data) {
+					let description = 'Data is currently unavailable';
+					nps.data.map(park => {
+						if (park.name == place.query) {
+							description = park.description
+						}
+					});
+					return (
 					<li key={place.id} className='place' tabIndex='2'>
 					<div className='place-details'>
 						<p>{place.title}</p>
-						<p>{place.description}</p>
+						<p>{description}</p>
 					</div>
 				</li>
-				))}
+				);
+					}})}
 			</ul>
 			<div className="darkitem">
 				<p>Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket! Hello world and Sprocket!</p>

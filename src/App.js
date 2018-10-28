@@ -39,7 +39,7 @@ class App extends Component {
 			</Header>
 			<MyMap listDisplay = {this.state.showingList}>
 			</MyMap>
-			<Darklist onFilterList = {this.updateList} listDisplay = {this.state.showingList}>
+	<Darklist onFilterList = {this.updateList} listDisplay = {this.state.showingList} nps = {this.state.allNPS}>
 			</Darklist>
 		</div>
 		);
