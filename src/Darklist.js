@@ -11,6 +11,20 @@ export class Darklist extends Component {
 		setTimeout(() => {this.props.onFilterList(filter)}, 50)
 		console.log(filter)		
 	}
+	
+	//Reduce 
+	formatDescription = description => {
+		const sentenceCount = "."
+		let count = 0
+		let index
+		let newPara = document.createElement("p")
+		while (count < 4) {
+			index = description.indexOf(sentenceCount, (index + 1))
+			count = count + 1
+		}
+		return newPara.innerHTML=description.slice(0, (index + 1))
+	}
+			
 		
 	render() {
 		const { filter } = this.state
@@ -61,12 +75,12 @@ export class Darklist extends Component {
 							description = campsite.FacilityDescription
 						}
 					})};
-					
+					let formatted = this.formatDescription(description);
 					return (
 					<li key={place.id} className='place' tabIndex='2'>
 					<div className='place-details'>
 						<p>{place.title}</p>
-						<p>{description}</p>
+						<p>{formatted}</p>
 						<p>{provider}</p>
 					</div>
 				</li>
