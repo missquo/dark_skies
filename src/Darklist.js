@@ -22,7 +22,11 @@ export class Darklist extends Component {
 			index = description.indexOf(sentenceCount, (index + 1))
 			count = count + 1
 		}
-		return newPara.innerHTML=description.slice(0, (index + 1))
+		if (index > 0) {
+			return newPara.innerHTML=description.slice(0, (index + 1))
+		} else {
+			return description
+		}
 	}
 			
 		
