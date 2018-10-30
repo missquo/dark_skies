@@ -11,7 +11,8 @@ class App extends Component {
 		showingList: darkskylist,
 		allNPS: [],
 		allCamp: [],
-		allRec: []
+		allRec: [],
+		allTrail: []
 	}
 	
 	componentDidMount(){
@@ -25,12 +26,19 @@ class App extends Component {
 		
 		//Fetch data from Recreation.gov via proxy for CORS errors
 		// Thanks to user at StackOverflow https://stackoverflow.com/questions/43262121/trying-to-use-fetch-and-pass-in-mode-no-cors
+		fetch('https://cors-anywhere.herokuapp.com/https://ridb.recreation.gov/api/v1/recareas/1027/facilities?query=trailhead&limit=50&offset=0&full=false&state=ID&activity=hiking&apikey=014f5b00-d3c3-45bf-a7b2-75a6563e0de6')	
+			.then((resp) => resp.json())
+			.then((allTrail) => {
+			this.setState({ allTrail })
+			console.log(this.state.allTrail)
+			})
+			
 		fetch('https://cors-anywhere.herokuapp.com/https://ridb.recreation.gov/api/v1/recareas?query=wilderness&limit=25&offset=0&full=false&state=ID&sort=Name&apikey=014f5b00-d3c3-45bf-a7b2-75a6563e0de6')	
 			.then((resp) => resp.json())
 			.then((allRec) => {
 			this.setState({ allRec })
 			console.log(this.state.allRec)
-			})
+		})
 		
 		fetch('https://cors-anywhere.herokuapp.com/https://ridb.recreation.gov/api/v1/recareas/1027/facilities?limit=50&offset=0&full=false&apikey=014f5b00-d3c3-45bf-a7b2-75a6563e0de6')	
 			.then((resp) => resp.json())
@@ -59,7 +67,12 @@ class App extends Component {
 			</Header>
 			<MyMap listDisplay = {this.state.showingList}>
 			</MyMap>
-	<Darklist onFilterList = {this.updateList} listDisplay = {this.state.showingList} nps = {this.state.allNPS} rec={this.state.allRec}>
+			<Darklist onFilterList = {this.updateList} 
+					listDisplay = {this.state.showingList} 
+					nps = {this.state.allNPS} 
+					rec = {this.state.allRec} 
+					trail = {this.state.allTrail} 
+					camp = {this.state.allCamp}>
 			</Darklist>
 		</div>
 		);

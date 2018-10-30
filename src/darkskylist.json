@@ -1,34 +1,62 @@
 [ 
- {
+   {
 	"id": "1",
+	"title": "Borah Peak",
+	"query": "Borah Peak Wilderness Study Area",
+	"location": { "lat": "44.1381578", "lng": "-113.7825817" },
+	"type": "point"
+  },
+	{
+	"id": "2",
 	"title": "Craters of the Moon",
 	"query": "Craters Of The Moon",
 	"location": { "lat": "43.4622159", "lng": "-113.5640147" },
 	"type": "point"
   },
-  {
-	"id": "2",
-	"title": "Mount Borah",
-	"query": "Mount Borah",
-	"location": { "lat": "44.1381578", "lng": "-113.7825817" },
-	"type": "point"
-  },
     {
 	"id": "3",
 	"title": "Frank Church Wilderness",
-	"query": "Wilde",
+	"query": "Frank Church-River of No Return Wilderness",
 	"location": { "lat": "44.679163", "lng": "-114.4239207" },
 	"type": "point"
   },
     {
 	"id": "4",
-	"title": "Champion Creek Trailhead",
-	"query": "Traily McTrailface",
-	"location": { "lat": "44.040093", "lng": "-114.7534447" },
+	"title": "Grandjean Trailhead",
+	"query": "Grandjean Trailhead",
+	"location": { "lat": "44.14725903", "lng": "-115.1507487" },
 	"type": "trail"
   },
     {
 	"id": "5",
+	"title": "Tin Cup Hiker Trailhead",
+	"query": "Tin Cup Hiker Trailhead",
+	"location": { "lat": "43.98425", "lng": "-114.8743277" },
+	"type": "trail"
+  },
+    {
+	"id": "6",   
+	"title": "Alturas Lake Inlet Campground",
+	"query": "ALTURAS LAKE INLET",
+	"location": { "lat": "43.925721", "lng": "-114.8513292" },
+	"type": "camp"
+  },
+      {
+	"id": "7",
+	"title": "Chemeketan Campground",
+	"query": "CHEMEKETAN CAMPGROUND",
+	"location": { "lat": "43.848154", "lng": "-114.7535512" },
+	"type": "camp"
+  },
+    {
+	"id": "8",
+	"title": "North Fork Campground",
+	"query": "NORTH FORK (ID)",
+	"location": { "lat": "43.788378", "lng": "-114.4266527" },
+	"type": "camp"
+  },
+    {
+	"id": "9",
 	"title": "Sunny Gulch Campground",
 	"query": "SUNNY GULCH CAMPGROUND",
 	"location": { "lat": "44.1761111", "lng": "-114.9091667" },
