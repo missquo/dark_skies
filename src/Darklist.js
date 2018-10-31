@@ -12,21 +12,30 @@ export class Darklist extends Component {
 		console.log(filter)		
 	}
 	
-	//Reduce 
+	//Reduce description length and remove tags
 	formatDescription = description => {
 		const sentenceCount = "."
 		let count = 0
 		let index
-		let newPara = document.createElement("p")
 		while (count < 4) {
 			index = description.indexOf(sentenceCount, (index + 1))
 			count = count + 1
 		}
 		if (index > 0) {
-			return newPara.innerHTML=description.slice(0, (index + 1))
-		} else {
-			return description
+			description = description.slice(0, (index + 1))
 		}
+
+		let open = description.search("<")
+		let close = description.search(">")
+		while (open > -1) {
+			let slice
+			slice = description.slice(open, (close + 1))
+			description = description.replace(slice,' ')
+			open = description.search("<")
+			close = description.search(">")
+		}
+				
+		return description
 	}
 			
 		
