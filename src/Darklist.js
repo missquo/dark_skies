@@ -36,23 +36,25 @@ export class Darklist extends Component {
 		}
 				
 		return description
-	}
-			
+	}			
 		
 	render() {
 		const { filter } = this.state
 		const { listDisplay, nps, rec, trail, camp } = this.props
 		return (	
-			<div id="darklist">
+			<div id="darklist-container">
+				<div id="filter-container">
+				<div className="filterHead"><h2>Filter Results</h2></div>
 				<div className="filter-options">
-					<h2>Filter Results</h2>
-					<select id="locationselect" tabIndex="0" value={filter} onChange={(event) => this.filterChange(event.target.value)}>
+					<select tabIndex="0" value={filter} onChange={(event) => this.filterChange(event.target.value)}>
 						<option role="tablist" value="all">All Locations</option>
 						<option role="tablist" value="point">Points of Interest</option>
 						<option role="tablist" value="trail">Hiking Trails</option>
 						<option role="tablist" value="camp">Campgrounds</option>
 					</select>
 				</div>
+				</div>
+				<div id="darklist-scroll">
 				<ul id="currentList">
 					{listDisplay.map((place) => {
 					let description = 'Data is currently unavailable';
@@ -62,29 +64,29 @@ export class Darklist extends Component {
 					let campsites = camp.RECDATA;
 					if (nps.data) {
 						nps.data.map(park => {
-							if (park.name == place.query) {
+							if (park.name === place.query) {
 								description = park.description
-								provider = "This information has been provided by The National Park Service."								
+								provider = "This information has been provided by The National Park Service."	
 							}
 					})};
 					
 					if (recsites) {
 					recsites.map(recreation => {
-						if (recreation.RecAreaName == place.query) {
+						if (recreation.RecAreaName === place.query) {
 							description = recreation.RecAreaDescription
 						}
 					})};
 					
 					if (trails) {
 					trails.map(trailhead => {
-						if (trailhead.FacilityName == place.query) {
+						if (trailhead.FacilityName === place.query) {
 							description = trailhead.FacilityDescription
 						}
 					})};
 					
 					if (campsites) {
 					campsites.map(campsite => {
-						if (campsite.FacilityName == place.query) {
+						if (campsite.FacilityName === place.query) {
 							description = campsite.FacilityDescription
 						}
 					})};
@@ -92,33 +94,15 @@ export class Darklist extends Component {
 					return (
 					<li key={place.id} className='place' tabIndex='2'>
 					<div className='place-details'>
-						<p>{place.title}</p>
+						<h2>{place.title}</h2>
 						<p>{formatted}</p>
-						<p>{provider}</p>
+						<p className="provider">{provider}</p>
 					</div>
 				</li>
 				);
 					})}
 			</ul>
-			<div className="darkitem">
-				<p>Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket! Hello world and Sprocket!</p>
-				</div>
-				
-				<div className="darkitem">
-				<p>Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket! Hello world and Sprocket!</p>
-				</div>
-				
-				<div className="darkitem">
-				<p>Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket! Hello world and Sprocket!</p>
-				</div>
-				
-				<div className="darkitem">
-				<p>Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket! Hello world and Sprocket!</p>
-				</div>
-				
-				<div className="darkitem">
-				<p>Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket! Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket!Hello world and Sprocket! Hello world and Sprocket!</p>
-				</div>
+			</div>
 			</div>
 		);
 	}
