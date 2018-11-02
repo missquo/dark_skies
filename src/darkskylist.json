@@ -22,41 +22,48 @@
   },
     {
 	"id": "4",
+	"title": "Cabin Creek Trailhead",
+	"query": "Cabin Creek Trailhead",
+	"location": { "lat": "43.937088", "lng": "-114.854643" },
+	"type": "trail"
+  },
+    {
+	"id": "5",
+	"title": "Gladiator Trailhead",
+	"query": "Gladiator Trailhead",
+	"location": { "lat": "43.89485064", "lng": "-114.6565615" },
+	"type": "trail"
+  },
+    {
+	"id": "6",
 	"title": "Grandjean Trailhead",
 	"query": "Grandjean Trailhead",
 	"location": { "lat": "44.14725903", "lng": "-115.1507487" },
 	"type": "trail"
   },
     {
-	"id": "5",
-	"title": "Tin Cup Hiker Trailhead",
-	"query": "Tin Cup Hiker Trailhead",
-	"location": { "lat": "43.98425", "lng": "-114.8743277" },
-	"type": "trail"
-  },
-    {
-	"id": "6",   
+	"id": "7",   
 	"title": "Alturas Lake Inlet Campground",
 	"query": "ALTURAS LAKE INLET",
 	"location": { "lat": "43.925721", "lng": "-114.8513292" },
 	"type": "camp"
   },
-      {
-	"id": "7",
+    {
+	"id": "8",
 	"title": "Chemeketan Campground",
 	"query": "CHEMEKETAN CAMPGROUND",
 	"location": { "lat": "43.848154", "lng": "-114.7535512" },
 	"type": "camp"
   },
     {
-	"id": "8",
+	"id": "9",
 	"title": "North Fork Campground",
 	"query": "NORTH FORK (ID)",
 	"location": { "lat": "43.788378", "lng": "-114.4266527" },
 	"type": "camp"
   },
     {
-	"id": "9",
+	"id": "10",
 	"title": "Sunny Gulch Campground",
 	"query": "SUNNY GULCH CAMPGROUND",
 	"location": { "lat": "44.1761111", "lng": "-114.9091667" },
