@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {Map, InfoWindow, Polygon, Marker, GoogleApiWrapper} from 'google-maps-react';
-import moonicon from './moonicon.png';
+import moonicon from './moonicon2.png';
 import mapStyles from './mapStyles.json'; // Lars Entrop's Red Darkness was starting point for map style https://snazzymaps.com/style/18566/red-darkness 
 
 // Getting Google Maps working with google-maps-react - npm documentation helpful:  https://www.npmjs.com/package/google-maps-react
@@ -12,6 +12,7 @@ export class MyMap extends Component {
 		selectedLocation: {},
 		activeMarker: {}
 	}
+	
 	
 	//Shows InfoWindow when user clicks marker
 	onMarkerClick = (props, marker, event) =>
@@ -43,6 +44,8 @@ export class MyMap extends Component {
 	}
 		
 	render() {
+		const { listDisplay, google } = this.props
+		
 		const darkSkyCore1 = [
 			{lat: 44.200529, lng: -114.6564147},
 			{lat: 44.159688, lng: -114.8479567},
@@ -69,13 +72,10 @@ export class MyMap extends Component {
 			{lat: 43.915051, lng: -114.8870567},
 			{lat: 44.080124, lng: -114.8953777}
 		];
-		
-		
-		const { listDisplay, google } = this.props
 
 		return (	
 			<div id="map-container">
-			<Map google = {google}
+			<Map id="map" google = {google}
 				onClick={this.mapClick}
 				onReady={this.mouseLeave}
 				initialCenter = {{
@@ -96,7 +96,7 @@ export class MyMap extends Component {
 					{listDisplay.map((place) => (
 				<InfoWindow	key={place.id} marker={this.state.activeMarker} visible={this.state.infoShowing}>
 						<div>
-						<h1>{this.state.selectedLocation.name}</h1>
+						<h2>{this.state.selectedLocation.name}</h2>
 						</div>
 				</InfoWindow>		
 						
@@ -109,7 +109,15 @@ export class MyMap extends Component {
 					strokeWeight={2}
 					fillColor="#4b0082"
 					fillOpacity={0.55}
+					onClick={this.onMarkerClick}
+					name="Dark Sky Core Area 1"
 				/>
+				
+				<InfoWindow	marker={this.state.activeMarker} visible={this.state.infoShowing}>
+						<div>
+						<h2>Dark Sky Core Area</h2>
+						</div>
+				</InfoWindow>
 				
 				<Polygon
 					paths={darkSkyCore2}

@@ -15,7 +15,17 @@ class App extends Component {
 		allTrail: []
 	}
 	
+		componentDidCatch(error, info) {
+
+			window.alert("Sorry, Google maps cannot be loaded.")
+			console.log("woooooooooooooooooooooo")
+		}
+	
 	componentDidMount(){
+		
+		fetch('https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM&callback=initMap')
+		.catch((error) => window.alert("Sorry, Google maps cannot be loaded at this time.\n" + error))
+		
 		// Fetch data from National Park Service
 		fetch('https://developer.nps.gov/api/v1/parks?stateCode=ID&api_key=VKaJBfPIuK5bD0hgyvivuwIkYGE9tCJEIY3GpG0z')
 			.then((resp) => resp.json())
@@ -23,6 +33,7 @@ class App extends Component {
 			this.setState({ allNPS })
 			console.log(this.state.allNPS)
 			})
+			
 		
 		//Fetch data from Recreation.gov via proxy for CORS errors
 		// Thanks to user at StackOverflow https://stackoverflow.com/questions/43262121/trying-to-use-fetch-and-pass-in-mode-no-cors
