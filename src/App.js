@@ -12,17 +12,15 @@ class App extends Component {
 		allNPS: [],
 		allCamp: [],
 		allRec: [],
-		allTrail: []
+		allTrail: [],
+		infoShowing: false,
+		selectedLocation: "",
+		activeMarker: {},
 	}
-	
-		componentDidCatch(error, info) {
 
-			window.alert("Sorry, Google maps cannot be loaded.")
-			console.log("woooooooooooooooooooooo")
-		}
-	
 	componentDidMount(){
 		
+		//Verify connection to Google Maps
 		fetch('https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM&callback=initMap')
 		.catch((error) => window.alert("Sorry, Google maps cannot be loaded at this time.\n" + error))
 		
@@ -32,8 +30,7 @@ class App extends Component {
 			.then((allNPS) => {
 			this.setState({ allNPS })
 			console.log(this.state.allNPS)
-			})
-			
+			})			
 		
 		//Fetch data from Recreation.gov via proxy for CORS errors
 		// Thanks to user at StackOverflow https://stackoverflow.com/questions/43262121/trying-to-use-fetch-and-pass-in-mode-no-cors
@@ -58,16 +55,46 @@ class App extends Component {
 			console.log(this.state.allCamp)				
 	})}
 	
+	
+		//Shows InfoWindow when user clicks marker
+	markerClick = (props, marker, event) => {
+		this.setState({
+			selectedLocation: props.name,
+			activeMarker: marker,
+			infoShowing: true
+    });
+	console.log(this.state.activeMarker)
+	}
 
+	
+	//Closes InfoWindow when user clicks map
+	mapClick = (props) => {
+		if (this.state.infoShowing) {
+			this.setState({
+				infoShowing: false,
+				activeMarker: null
+			})
+		}
+	};
+	
+	/*Closes InfoWindow when mouse leaves map
+	mouseLeave = () => {
+		var map = document.getElementById("map-container");
+		map.addEventListener("mouseleave", () =>  { 
+			this.setState({
+				infoShowing: false,
+				activeMarker: null
+			})
+		})
+	}
+*/
 	updateList = (type) => {
 
 		if (type === "all") {
 			this.setState({	showingList: this.state.fullList })
-			console.log(this.state.showingList)
+			console.log(this.state.selected)
 		} else {
 			this.setState({ showingList: this.state.fullList.filter(item => item.type === type)})
-			console.log(type)
-			console.log(this.state.showingList)
 		}
     }
 	
@@ -76,10 +103,16 @@ class App extends Component {
 		<div>
 			<Header>
 			</Header>
-			<MyMap listDisplay = {this.state.showingList}>
+			<MyMap listDisplay = {this.state.showingList}
+					onMapClick = {this.mapClick}
+					onMarkerClick = {this.markerClick}
+					active = {this.state.activeMarker}
+					info = {this.state.infoShowing}
+					selected = {this.state.selectedLocation}>
 			</MyMap>
 			<Darklist onFilterList = {this.updateList} 
 					listDisplay = {this.state.showingList} 
+					onListClick = {this.mapClick}
 					nps = {this.state.allNPS} 
 					rec = {this.state.allRec} 
 					trail = {this.state.allTrail} 

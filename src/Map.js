@@ -1,50 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 import {Map, InfoWindow, Polygon, Marker, GoogleApiWrapper} from 'google-maps-react';
-import moonicon from './moonicon2.png';
+import moonicon from './moonicon.png';
 import mapStyles from './mapStyles.json'; // Lars Entrop's Red Darkness was starting point for map style https://snazzymaps.com/style/18566/red-darkness 
 
 // Getting Google Maps working with google-maps-react - npm documentation helpful:  https://www.npmjs.com/package/google-maps-react
 
 export class MyMap extends Component {
-	state = {
-		infoShowing: false,
-		selectedLocation: {},
-		activeMarker: {}
-	}
-	
-	
-	//Shows InfoWindow when user clicks marker
-	onMarkerClick = (props, marker, event) =>
-		this.setState({
-			selectedLocation: props,
-			activeMarker: marker,
-			infoShowing: true
-    });
-	
-	//Closes InfoWindow when user clicks map
-	mapClick = (props) => {
-		if (this.state.infoShowing) {
-			this.setState({
-				infoShowing: false,
-				activeMarker: null
-			})
-		}
-	};
-	
-	//Closes InfoWindow when mouse leaves map
-	mouseLeave = () => {
-		var map = document.getElementById("map-container");
-		map.addEventListener("mouseleave", () =>  { 
-			this.setState({
-				infoShowing: false,
-				activeMarker: null
-			})
-		})
-	}
-		
+			
 	render() {
-		const { listDisplay, google } = this.props
+		const { listDisplay, onMapClick, onMarkerClick, active, info, selected, google } = this.props
 		
 		const darkSkyCore1 = [
 			{lat: 44.200529, lng: -114.6564147},
@@ -75,9 +40,8 @@ export class MyMap extends Component {
 
 		return (	
 			<div id="map-container">
-			<Map id="map" google = {google}
-				onClick={this.mapClick}
-				onReady={this.mouseLeave}
+			<Map google = {google}
+				onClick={onMapClick}
 				initialCenter = {{
 					lat: 44.015768,
 					lng: -114.344747}}
@@ -86,17 +50,18 @@ export class MyMap extends Component {
 				
  				{listDisplay.map((place) => (
 				<Marker key={place.id} 
-					onClick={this.onMarkerClick}
+					onClick={onMarkerClick}
 					name={place.title}
 					position={place.location}
 					icon={{url: moonicon}}
+					//animation={active ? (place.title === active.name ? '1' : '0') : '0'}
 					/>
 				))}
 				
-					{listDisplay.map((place) => (
-				<InfoWindow	key={place.id} marker={this.state.activeMarker} visible={this.state.infoShowing}>
+				{listDisplay.map((place) => (
+				<InfoWindow	key={place.id} marker={active} visible={info}>
 						<div>
-						<h2>{this.state.selectedLocation.name}</h2>
+						<h2>{selected}</h2>
 						</div>
 				</InfoWindow>		
 						
@@ -109,16 +74,8 @@ export class MyMap extends Component {
 					strokeWeight={2}
 					fillColor="#4b0082"
 					fillOpacity={0.55}
-					onClick={this.onMarkerClick}
-					name="Dark Sky Core Area 1"
 				/>
-				
-				<InfoWindow	marker={this.state.activeMarker} visible={this.state.infoShowing}>
-						<div>
-						<h2>Dark Sky Core Area</h2>
-						</div>
-				</InfoWindow>
-				
+								
 				<Polygon
 					paths={darkSkyCore2}
 					strokeColor="#4b0082"

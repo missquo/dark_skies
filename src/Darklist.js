@@ -24,7 +24,6 @@ export class Darklist extends Component {
 		if (index > 0) {
 			description = description.slice(0, (index + 1))
 		}
-
 		let open = description.search("<")
 		let close = description.search(">")
 		while (open > -1) {
@@ -33,19 +32,18 @@ export class Darklist extends Component {
 			description = description.replace(slice,' ')
 			open = description.search("<")
 			close = description.search(">")
-		}
-				
+		}				
 		return description
 	}			
 		
 	render() {
 		const { filter } = this.state
-		const { listDisplay, nps, rec, trail, camp } = this.props
+		const { listDisplay, nps, rec, trail, camp, onListClick } = this.props
 		return (	
 			<div id="darklist-container">
 				<div id="filter-container">
 				<div className="filterHead"><h2>Filter Results</h2></div>
-				<div className="filter-options">
+				<div className="filter-options" onClick={onListClick}>
 					<select tabIndex="0" value={filter} onChange={(event) => this.filterChange(event.target.value)}>
 						<option role="tablist" value="all">All Locations</option>
 						<option role="tablist" value="point">Points of Interest</option>

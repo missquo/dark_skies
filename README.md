@@ -14,7 +14,7 @@ The object of this project was to gain practice using the React library.  It is 
 
 ## Dependencies
 
-This project was bootstrapped with React, and all necessary dependencies are listed in the package.json file included in the repository, and can be installed using npm install.  External data is pulled from APIs from [Google](https://www.google.com), the [National Park Service](https://www.nps.gov), and the USDA's [Recreation.gov](https://www.recreation.gov) website.
+This project was bootstrapped with React, and all necessary dependencies are listed in the package.json file included in the repository and can be installed using 'npm install'.  External data is pulled from APIs from [Google](https://www.google.com), the [National Park Service](https://www.nps.gov), and the USDA's [Recreation.gov](https://www.recreation.gov) website.
 
 ## Using the App
 
