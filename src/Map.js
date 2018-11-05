@@ -9,7 +9,7 @@ import mapStyles from './mapStyles.json'; // Lars Entrop's Red Darkness was star
 export class MyMap extends Component {
 			
 	render() {
-		const { listDisplay, onMapClick, onMarkerClick, active, info, selected, google } = this.props
+		const { listDisplay, onMapClick, onMarkerClick, active, info, selected, markerArray, google } = this.props
 		
 		const darkSkyCore1 = [
 			{lat: 44.200529, lng: -114.6564147},
@@ -49,12 +49,13 @@ export class MyMap extends Component {
 				styles = {mapStyles}>
 				
  				{listDisplay.map((place) => (
-				<Marker key={place.id} 
+				<Marker ref={markerArray}
+					key={place.id} 
+					id={place.id}
 					onClick={onMarkerClick}
 					name={place.title}
 					position={place.location}
 					icon={{url: moonicon}}
-					//animation={active ? (place.title === active.name ? '1' : '0') : '0'}
 					/>
 				))}
 				

@@ -8,8 +8,7 @@ export class Darklist extends Component {
 	
 	filterChange = filter => {
 		this.setState({ filter })
-		setTimeout(() => {this.props.onFilterList(filter)}, 50)
-		console.log(filter)		
+		setTimeout(() => {this.props.onFilterList(filter)}, 50)	
 	}
 	
 	//Reduce description length and remove tags
@@ -38,7 +37,7 @@ export class Darklist extends Component {
 		
 	render() {
 		const { filter } = this.state
-		const { listDisplay, nps, rec, trail, camp, onListClick } = this.props
+		const { listDisplay, nps, rec, trail, camp, onListClick, onItemClick } = this.props
 		return (	
 			<div id="darklist-container">
 				<div id="filter-container">
@@ -91,7 +90,7 @@ export class Darklist extends Component {
 					let formatted = this.formatDescription(description);
 					return (
 					<li key={place.id} className='place' tabIndex='2'>
-					<div className='place-details'>
+					<div className='place-details' onClick={() => onItemClick(place)}>
 						<h2>{place.title}</h2>
 						<p>{formatted}</p>
 						<p className="provider">{provider}</p>

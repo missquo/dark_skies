@@ -9,19 +9,19 @@ class App extends Component {
 	state = {
 		fullList: darkskylist,
 		showingList: darkskylist,
+		allMarkers: [],
 		allNPS: [],
 		allCamp: [],
 		allRec: [],
 		allTrail: [],
 		infoShowing: false,
 		selectedLocation: "",
-		activeMarker: {},
+		activeMarker: {}
 	}
 
-	componentDidMount(){
-		
+	componentDidMount(){		
 		//Verify connection to Google Maps
-		fetch('https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM&callback=initMap')
+		fetch('https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM&callback=initMap')
 		.catch((error) => window.alert("Sorry, Google maps cannot be loaded at this time.\n" + error))
 		
 		// Fetch data from National Park Service
@@ -55,17 +55,37 @@ class App extends Component {
 			console.log(this.state.allCamp)				
 	})}
 	
-	
-		//Shows InfoWindow when user clicks marker
+	//Add references to markers to an array
+	addMarker = (element) => 
+      this.state.allMarkers.push(element)
+      
+	//Shows InfoWindow when user clicks marker
 	markerClick = (props, marker, event) => {
 		this.setState({
 			selectedLocation: props.name,
 			activeMarker: marker,
 			infoShowing: true
     });
-	console.log(this.state.activeMarker)
+	console.log(this.state.allMarkers)
 	}
-
+	
+	//Should display InfoWindow when list items clicked
+	listItemClick = (item) => {
+		let thisMarker
+		this.state.allMarkers.map(marker => {
+			if (marker.props.name === item.title) {
+				thisMarker = marker
+				console.log(marker)
+			}
+		})
+		this.setState({
+			selectedLocation: item.title,
+			activeMarker: thisMarker,
+			infoShowing: true
+			})
+			
+		console.log(item)
+	}
 	
 	//Closes InfoWindow when user clicks map
 	mapClick = (props) => {
@@ -104,15 +124,18 @@ class App extends Component {
 			<Header>
 			</Header>
 			<MyMap listDisplay = {this.state.showingList}
+					markerArray = {this.addMarker}
 					onMapClick = {this.mapClick}
 					onMarkerClick = {this.markerClick}
 					active = {this.state.activeMarker}
 					info = {this.state.infoShowing}
-					selected = {this.state.selectedLocation}>
+					selected = {this.state.selectedLocation}
+					markerRef = {this.state.allMarkers}>
 			</MyMap>
 			<Darklist onFilterList = {this.updateList} 
 					listDisplay = {this.state.showingList} 
 					onListClick = {this.mapClick}
+					onItemClick = {this.listItemClick}
 					nps = {this.state.allNPS} 
 					rec = {this.state.allRec} 
 					trail = {this.state.allTrail} 
