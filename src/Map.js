@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-// import {Map, InfoWindow, Polygon, Marker, GoogleApiWrapper} from 'google-maps-react';
-import InitMap from './InitMap.js';
+import {Map, InfoWindow, Polygon, Marker, GoogleApiWrapper} from 'google-maps-react';
 import moonicon from './moonicon.png';
 import mapStyles from './mapStyles.json'; // Lars Entrop's Red Darkness was starting point for map style https://snazzymaps.com/style/18566/red-darkness 
 
@@ -40,30 +39,26 @@ export class MyMap extends Component {
 		];
 
 		return (	
-			<InitMap
-        id="map-container"
-        options={{
-          center: { lat: 44.015768, lng: -114.344747 },
-          zoom: 8.6,
-		  styles: mapStyles
-        }}
-		
-        onMapLoad = {map => {
-			listDisplay.map((place) => {
-				var marker = new window.google.maps.Marker({
-					map:map,
-					key:place.id,
-					id: place.id,
-					onClick: onMarkerClick,
-					name: place.title,
-					position: place.location,
-					icon: moonicon
-					});
+			<div id="map-container">
+			<Map google = {google}
+				onClick={onMapClick}
+				initialCenter = {{
+					lat: 44.015768,
+					lng: -114.344747}}
+				zoom={8.6}
+				styles = {mapStyles}>
 				
-			})
-		}}
-      
-				/*
+ 				{listDisplay.map((place) => (
+				<Marker ref={markerArray}
+					key={place.id} 
+					id={place.id}
+					onClick={onMarkerClick}
+					name={place.title}
+					position={place.location}
+					icon={{url: moonicon}}
+					/>
+				))}
+				
 				{listDisplay.map((place) => (
 				<InfoWindow	key={place.id} marker={active} visible={info}>
 						<div>
@@ -90,10 +85,13 @@ export class MyMap extends Component {
 					fillColor="#4b0082"
 					fillOpacity={0.55}
 				/>
-				*/
-			/>
+				
+			</Map>
+			</div>
 		);
 	}
 }
 
-export default MyMap
+export default GoogleApiWrapper({
+  apiKey: ("AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM")
+})(MyMap)
