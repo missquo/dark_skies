@@ -121,28 +121,20 @@ nav h1 {
 	}
 
 	#darklist-container {
-		padding: 385px 0 0 0;
+		padding: 485px 0 0 0;
 		width: 100%;
 	}
 
 	#filter-container {
 	width: 100%;
 	left: 0;
-	top: 385px;   
+	top: 435px;   
 	padding: 0;
 	}
 
 	#darklist-scroll {
 	padding: 0 15px 0 15px;
 	}  
-	
-	.filterHead {
-	padding: 0;
-	}
-	
-	.filter-options {
-	padding: 0;
-	}
 }
 
 @media screen and (max-width: 415px) {
@@ -152,6 +144,17 @@ nav h1 {
 	
 	#filter-container {
 	left: 0;
-	top: 295px;   
+	top: 335px;   
 	}
+	
+	.filterHead {
+	padding: 0;
+	}
+	
+	.filter-options {
+	padding: 0;
+	}
+	
+	
+	
 }
