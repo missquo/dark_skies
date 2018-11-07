@@ -62,13 +62,8 @@ nav h1 {
 	width: 100%; 
 }
 
-#map-container {
-	height: 94%;
-	position: fixed;
-	right: 0;
-	top: 54px;
-	width: 58%;
-}
+
+
 
 #darklist-container {
 	display: flex;
