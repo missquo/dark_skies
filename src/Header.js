@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
 import './App.css';
 
-function Header(props) {
-	return (	
-		<nav>
-		<h1 tabIndex="0">Enjoying the US's First Dark Sky Reserve</h1>
-		<a href="#locationfilter" className="skip-link">Skip to main content - Filter locations by type</a>
-		</nav>
-	);
-}
+class Header extends Component {
+	render () {
+	    const { updateList } = this.props;
+		return (	
+			<div>
+				<header>
+					<h1 tabIndex="0">Enjoying the US's First Dark Sky Reserve</h1>
+					<a href="#filter-container" className="skip-link">Skip to main content - Filter locations by type</a>
+				</header>
+				<div id="filter-container">
+					<div className="filter-options">
+						<select tabIndex="0" onChange={(event) => updateList(event.target.value)}>
+							<option role="tablist" value="all">All Locations</option>
+							<option role="tablist" value="point">Points of Interest</option>
+							<option role="tablist" value="trail">Hiking Trails</option>
+							<option role="tablist" value="camp">Campgrounds</option>
+						</select>
+					</div>
+				</div>
+			</div>
 
+		);
+	}
+}
+	
 export default Header

@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 
 export class Darklist extends Component {
-	state = {
-		filter: "all"
-	}
-	
-	filterChange = filter => {
-		this.setState({ filter })
-		setTimeout(() => {this.props.onFilterList(filter)}, 50)	
-	}
-	
-	//Reduce description length and remove tags
 	formatDescription = description => {
 		const sentenceCount = "."
 		let count = 0
@@ -33,34 +23,36 @@ export class Darklist extends Component {
 			close = description.search(">")
 		}				
 		return description
-	}			
+	}
+	
+	render () {
+		const { showingList, nps, rec, trail, camp, allInfoWindows, allMarkers } = this.props;
+		let places = Array.from(document.querySelectorAll(".place"));
+		places.forEach((place, i) => {
+			place.addEventListener("click", () => {
+				allMarkers.map(marker => {	
+					if (marker.title === place.title) {
+						marker.setAnimation(window.google.maps.Animation.BOUNCE);
+						allInfoWindows[i].setContent("<div className='info'>" + marker.title + "</div>");
+						allInfoWindows[i].open(this.map, marker);
+					} 
+				setTimeout(marker.setAnimation(window.google.maps.Animation.null), 10000);
+			return marker;
+        });
+      });
+    })
 		
-	render() {
-		const { filter } = this.state
-		const { listDisplay, nps, rec, trail, camp, onListClick, onItemClick } = this.props
-		return (	
-			<div id="darklist-container">
-				<div id="filter-container">
-				<div className="filterHead"><h2>Filter Results</h2></div>
-				<div className="filter-options" onClick={onListClick}>
-					<select tabIndex="0" value={filter} onChange={(event) => this.filterChange(event.target.value)}>
-						<option role="tablist" value="all">All Locations</option>
-						<option role="tablist" value="point">Points of Interest</option>
-						<option role="tablist" value="trail">Hiking Trails</option>
-						<option role="tablist" value="camp">Campgrounds</option>
-					</select>
-				</div>
-				</div>
-				<div id="darklist-scroll">
+		return (
+			<div id="darklist-scroll">
 				<ul id="currentList">
-					{listDisplay.map((place) => {
+					{showingList.map((place) => {
 					let description = 'Data is currently unavailable';
 					let provider = "This information has been provided by Recreation.gov."
 					let recsites = rec.RECDATA;
 					let trails = trail.RECDATA;
 					let campsites = camp.RECDATA;
 					if (nps.data) {
-						nps.data.map(park => {
+						nps.data.forEach(park => {
 							if (park.name === place.query) {
 								description = park.description
 								provider = "This information has been provided by The National Park Service."	
@@ -68,41 +60,39 @@ export class Darklist extends Component {
 					})};
 					
 					if (recsites) {
-					recsites.map(recreation => {
+					recsites.forEach(recreation => {
 						if (recreation.RecAreaName === place.query) {
 							description = recreation.RecAreaDescription
 						}
 					})};
 					
 					if (trails) {
-					trails.map(trailhead => {
+					trails.forEach(trailhead => {
 						if (trailhead.FacilityName === place.query) {
 							description = trailhead.FacilityDescription
 						}
 					})};
 					
 					if (campsites) {
-					campsites.map(campsite => {
+					campsites.forEach(campsite => {
 						if (campsite.FacilityName === place.query) {
 							description = campsite.FacilityDescription
 						}
 					})};
 					let formatted = this.formatDescription(description);
 					return (
-					<li key={place.id} className='place' tabIndex='2'>
-					<div className='place-details' onClick={() => onItemClick(place)}>
-						<h2>{place.title}</h2>
-						<p>{formatted}</p>
-						<p className="provider">{provider}</p>
-					</div>
-				</li>
-				);
-					})}
+						<li className="place" key={place.id} tabIndex='2' title={place.title}>
+							<div className='place-details'>
+								<h2>{place.title}</h2>
+								<p>{formatted}</p>
+								<p className="provider">{provider}</p>
+							</div>
+						</li>
+					);
+				})}
 			</ul>
-			</div>
-			</div>
-		);
-	}
-}
+		</div>
+	)};
+};
 
 export default Darklist
