@@ -18,7 +18,12 @@ class App extends Component {
 		infoWindows: []
 	};
 
-	//When component mounts, set critical states and render map
+	//Check for Google Maps authentication errors, and display message to user when they occur
+	gm_authFailure = () => {
+		window.alert("Google Maps has failed to load.")
+		window.document.getElementById("map").innerHTML = "<span>There was an error loading Google Maps.</span>";
+	};
+
 	componentDidMount() {
 		// Fetch data from National Park Service
 		fetch('https://developer.nps.gov/api/v1/parks?stateCode=ID&api_key=VKaJBfPIuK5bD0hgyvivuwIkYGE9tCJEIY3GpG0z')
@@ -50,6 +55,9 @@ class App extends Component {
 		// Critical help in sorting Google map loading: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
 		this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM&v=3&callback=initMap");
 		window.initMap = this.initMap;
+		
+		// Check for Google authentication errors
+		window.gm_authFailure = () => this.gm_authFailure();
 	}
   
 	// Critical help in sorting Google map loading: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
@@ -61,7 +69,7 @@ class App extends Component {
 		ref.parentNode.insertBefore(script, ref);
 	}
   
-  // Update displayed places
+	// Update displayed locations
   	updateList = (type) => {
 		this.state.markerArray.map(marker => marker.setVisible(true));
 		if (type === "all") {
@@ -100,7 +108,7 @@ class App extends Component {
 			let infoWindow = new window.google.maps.InfoWindow({
 				title: place.title,
 			});
-			infoWindow.setContent("<div className='info'>" + place.title + "</div>");
+			infoWindow.setContent(place.title);
 			this.state.infoWindows.push(infoWindow);
 			marker.addListener("click", () => infoWindow.open(map, marker));
 			return marker;
@@ -112,7 +120,7 @@ class App extends Component {
 		return (
 			<div className="application">
 				<Header	updateList={this.updateList} closeInfo={this.closeAllInfo} />
-				<div className="bodyarea">
+				<main className="bodyarea">
 					<Darklist showingList={this.state.showingList}
 					nps = {this.state.allNPS} 
 					rec = {this.state.allRec} 
@@ -127,7 +135,7 @@ class App extends Component {
 							</div>
 						</div>
 					</div>
-				</div>
+				</main>
 			</div>
 		);
 	}

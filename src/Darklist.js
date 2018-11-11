@@ -27,7 +27,6 @@ export class Darklist extends Component {
 		return description
 	}
 	
-	
 	clickList = (infos, markers) => {
 		let places = Array.from(document.querySelectorAll(".place"));
 		places.forEach((place, i) => {
@@ -87,7 +86,7 @@ export class Darklist extends Component {
 					})};
 					let formatted = this.formatDescription(description);
 					return (
-						<li className="place" key={place.id} tabIndex='0' title={place.title}>
+						<li className="place" key={place.id} tabIndex='0' role="link" title={place.title}>
 							<div className='place-details'>
 								<h2>{place.title}</h2>
 								<p>{formatted}</p>
