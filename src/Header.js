@@ -3,7 +3,7 @@ import './App.css';
 
 class Header extends Component {
 	render () {
-	    const { updateList } = this.props;
+	    const { updateList, closeInfo } = this.props;
 		return (	
 			<div>
 				<header>
@@ -11,7 +11,7 @@ class Header extends Component {
 					<a href="#filter-container" className="skip-link">Skip to main content - Filter locations by type</a>
 				</header>
 				<div id="filter-container">
-					<div className="filter-options">
+					<div className="filter-options" onClick={() => closeInfo()}>
 						<select tabIndex="0" onChange={(event) => updateList(event.target.value)}>
 							<option role="tablist" value="all">All Locations</option>
 							<option role="tablist" value="point">Points of Interest</option>

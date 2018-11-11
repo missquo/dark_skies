@@ -13,9 +13,9 @@ header h1 {
 }
 
 .application {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 .bodyarea {
@@ -61,6 +61,11 @@ header h1 {
 
 #map {
 	height: 100%;
+	text-align: center;
+}
+
+#map span{
+	color: silver;
 }
 
 #darklist-scroll {
@@ -91,11 +96,11 @@ header h1 {
 	z-index: 100;
 }
 
-@media only screen and (max-width: 600px) {
-	
+@media only screen and (max-width: 600px) {	
 	header {
 		height: 45px;
 		padding: 5px;
+		width: 100%;
 	}
 	
 	header h1 {
@@ -108,12 +113,13 @@ header h1 {
 	}
 	
 	.map2 {
-		height: 40vh;
+		height: 30vh;
+		width:100%;
 	}
 
 	#darklist-scroll {
-		height: 50vh;
-		width: 90%;
+		height: 40vh;
+		width: 100%;
 		padding: 0 50px 0 15px;
 		order: 2;
 	}

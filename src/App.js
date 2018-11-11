@@ -18,9 +18,9 @@ class App extends Component {
 		infoWindows: []
 	};
 
-  //When component mounts, set critical states and render map
-  componentDidMount() {
-	  // Fetch data from National Park Service
+	//When component mounts, set critical states and render map
+	componentDidMount() {
+		// Fetch data from National Park Service
 		fetch('https://developer.nps.gov/api/v1/parks?stateCode=ID&api_key=VKaJBfPIuK5bD0hgyvivuwIkYGE9tCJEIY3GpG0z')
 			.then((resp) => resp.json())
 			.then((allNPS) => {
@@ -45,20 +45,21 @@ class App extends Component {
 			.then((resp) => resp.json())
 			.then((allCamp) => {
 			this.setState({ allCamp })			
-	})
-	// Critical help in sorting Google map loading: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
-    this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM&v=3&callback=initMap");
-    window.initMap = this.initMap;
-  }
+		})
+	
+		// Critical help in sorting Google map loading: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
+		this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbHqdrnj-iibIguzGZngB4__2qR1MpwM&v=3&callback=initMap");
+		window.initMap = this.initMap;
+	}
   
-   // Critical help in sorting Google map loading: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
-  loadScript = (src) => {
-    let ref = window.document.getElementsByTagName("script")[0];
-    let script = window.document.createElement("script");
-    script.src = src;
-    script.async = true;
-    ref.parentNode.insertBefore(script, ref);
-  }
+	// Critical help in sorting Google map loading: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
+	loadScript = (src) => {
+		let ref = window.document.getElementsByTagName("script")[0];
+		let script = window.document.createElement("script");
+		script.src = src;
+		script.async = true;
+		ref.parentNode.insertBefore(script, ref);
+	}
   
   // Update displayed places
   	updateList = (type) => {
@@ -70,58 +71,66 @@ class App extends Component {
 			this.state.markerArray.filter(marker => marker.type !== type).map(marker => marker.setVisible(false));
 		}
     }
+	
+	// Close all infowindows
+	closeAllInfo = () => {
+		let allInfo = this.state.infoWindows;
+		allInfo.forEach(info => {	
+			info.close()
+		})
+	};
     
-  // Initialize map
-  initMap = () => {
-      let map = new window.google.maps.Map(document.getElementById("map"), {
-        center: { lat: 44.015768, lng: -114.344747 },
-        zoom: 8.6,
-        styles: mapStyles
-      });
-      let markers = this.state.showingList.map((place) => {
-        let marker = new window.google.maps.Marker({
-          map: map,
-          position: place.location,
-          query: place.query,
-          title: place.title,
-          id: place.id,
-		  icon: moonicon,
-          type: place.type
-        });
-        let infoWindow = new window.google.maps.InfoWindow({
-          title: place.title,
-        });
-		infoWindow.setContent("<div className='info'>" + place.title + "</div>");
-        this.state.infoWindows.push(infoWindow);
-        marker.addListener("click", () => infoWindow.open(map, marker));
-        return marker;
-      });
-      this.setState({ markerArray: markers });
-  };
+	// Initialize map
+	initMap = () => {
+		let map = new window.google.maps.Map(document.getElementById("map"), {
+			center: { lat: 44.015768, lng: -114.344747 },
+			zoom: 8.6,
+			styles: mapStyles
+		});
+		let markers = this.state.showingList.map((place) => {
+			let marker = new window.google.maps.Marker({
+				map: map,
+				position: place.location,
+				query: place.query,
+				title: place.title,
+				id: place.id,
+				icon: moonicon,
+				type: place.type
+			});
+			let infoWindow = new window.google.maps.InfoWindow({
+				title: place.title,
+			});
+			infoWindow.setContent("<div className='info'>" + place.title + "</div>");
+			this.state.infoWindows.push(infoWindow);
+			marker.addListener("click", () => infoWindow.open(map, marker));
+			return marker;
+		});
+		this.setState({ markerArray: markers });
+	};
  
    render() {
-      return (
-		<div className="application">
-			<Header	updateList={this.updateList} />
-			<div className="bodyarea">
-				<Darklist showingList={this.state.showingList}
-				nps = {this.state.allNPS} 
-				rec = {this.state.allRec} 
-				trail = {this.state.allTrail} 
-				camp = {this.state.allCamp} 
-				allInfoWindows = {this.state.infoWindows}
-				allMarkers = {this.state.markerArray}
-				/>
-				<div className="map1">
-					<div className="map2" role="application">
-						<div id="map">
+		return (
+			<div className="application">
+				<Header	updateList={this.updateList} closeInfo={this.closeAllInfo} />
+				<div className="bodyarea">
+					<Darklist showingList={this.state.showingList}
+					nps = {this.state.allNPS} 
+					rec = {this.state.allRec} 
+					trail = {this.state.allTrail} 
+					camp = {this.state.allCamp} 
+					allInfoWindows = {this.state.infoWindows}
+					allMarkers = {this.state.markerArray}
+					/>
+					<div className="map1">
+						<div className="map2" role="application">
+							<div id="map" tabIndex="-1"><span>Google maps is attempting to load...  </span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-      );
-  }
+		);
+	}
 }
 
 export default App

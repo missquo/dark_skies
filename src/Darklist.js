@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 
 export class Darklist extends Component {
+	
+	//Reduce description length and remove tags
 	formatDescription = description => {
 		const sentenceCount = "."
 		let count = 0
@@ -30,18 +32,17 @@ export class Darklist extends Component {
 		let places = Array.from(document.querySelectorAll(".place"));
 		places.forEach((place, i) => {
 			place.addEventListener("click", () => {
-				allMarkers.map(marker => {	
+				allMarkers.map(marker => {
 					if (marker.title === place.title) {
 						marker.setAnimation(window.google.maps.Animation.BOUNCE);
-						allInfoWindows[i].setContent("<div className='info'>" + marker.title + "</div>");
+						allInfoWindows[i].setContent(marker.title);
 						allInfoWindows[i].open(this.map, marker);
 					} 
 				setTimeout(marker.setAnimation(window.google.maps.Animation.null), 10000);
-			return marker;
-        });
-      });
-    })
-		
+				return marker;
+				});
+			});
+		})		
 		return (
 			<div id="darklist-scroll">
 				<ul id="currentList">
@@ -81,7 +82,7 @@ export class Darklist extends Component {
 					})};
 					let formatted = this.formatDescription(description);
 					return (
-						<li className="place" key={place.id} tabIndex='2' title={place.title}>
+						<li className="place" key={place.id} tabIndex='0' title={place.title}>
 							<div className='place-details'>
 								<h2>{place.title}</h2>
 								<p>{formatted}</p>
