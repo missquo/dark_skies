@@ -27,22 +27,27 @@ export class Darklist extends Component {
 		return description
 	}
 	
-	render () {
-		const { showingList, nps, rec, trail, camp, allInfoWindows, allMarkers } = this.props;
+	
+	clickList = (infos, markers) => {
 		let places = Array.from(document.querySelectorAll(".place"));
 		places.forEach((place, i) => {
 			place.addEventListener("click", () => {
-				allMarkers.map(marker => {
+				markers.map(marker => {
 					if (marker.title === place.title) {
 						marker.setAnimation(window.google.maps.Animation.BOUNCE);
-						allInfoWindows[i].setContent(marker.title);
-						allInfoWindows[i].open(this.map, marker);
+						infos[i].setContent(marker.title);
+						infos[i].open(this.map, marker);
 					} 
 				setTimeout(marker.setAnimation(window.google.maps.Animation.null), 10000);
 				return marker;
 				});
 			});
-		})		
+		})
+	}
+	
+	render () {
+		const { showingList, nps, rec, trail, camp, allInfoWindows, allMarkers } = this.props;
+		setTimeout(() => {this.clickList(allInfoWindows, allMarkers)}, 300);
 		return (
 			<div id="darklist-scroll">
 				<ul id="currentList">
