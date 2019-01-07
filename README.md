@@ -8,9 +8,7 @@
 
 ## Introduction
 
-As the final project of [Udacity](https://www.udacity.com/)'s Front End Nanodegree Program, this map application allows the user to explore the area around the United States's first Dark Sky Reserve in central Idaho. 
-
-The object of this project was to gain practice using the React library.  It is a basic book organization tool, where the user can search for books by topic, and add them to their personalized bookshelf by category:  Currently Reading, Want to Read, or Read. [Udacity](https://www.udacity.com/) provided the static HTML, CSS, as well as a backend server with methods to access it. 
+As the final project of [Udacity](https://www.udacity.com/)'s Front End Nanodegree Program, this map application allows the user to explore the area around the United States's first Dark Sky Reserve in central Idaho.
 
 ## Dependencies
 
